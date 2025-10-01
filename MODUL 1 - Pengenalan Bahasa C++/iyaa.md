@@ -47,4 +47,7 @@ Kode di atas digunakan untuk mencetak teks "ini adalah file code guided praktika
 Ringkasan dan interpretasi pandangan kalia dari hasil praktikum dan pembelajaran yang didapat[1].
 
 ## Referensi
-[1] I. Holm, Narrator, and J. Fullerton-Smith, Producer, How to Build a Human [DVD]. London: BBC; 2002.
+(https://www.w3schools.com/cpp/cpp_arrays.asp
+https://www.w3schools.com/cpp/
+https://id.wikipedia.org/wiki/C%2B%2B
+Modul 1 Pengenalan Bahasa C++)
