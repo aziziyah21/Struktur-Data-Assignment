@@ -3,18 +3,22 @@ using namespace std;
 
 int main() {
     float a, b;
-    cout << "Masukan bilangan1: ";
+    cout << "Bilangan1: ";
     cin >> a;
-    cout << "Masukan bilangan2: ";
+    cout << "Bilangan2: ";
     cin >> b;
 
-    cout << "Hasil penjumlahan: " << a + b << endl;
-    cout << "Hasil pengurangan: " << a - b << endl;
-    cout << "Hasil perkalian: " << a * b << endl;
-    if (b != 0)
-       cout << "Hasil pembagian: " << a / b << endl;
-    else
-       cout << "Pembagian nol tidak dapat dilakukan." << endl;
-
+    //aritmatika
+    cout << "Penjumlahan: " << a + b << endl;
+    cout << "Pengurangan: " << a - b << endl;
+    cout << "Perkalian: " << a * b << endl;
+    cout << "Pembagian: " << a / b << endl;
+    
+    //atau
+    cout << a << " + " << b << " = " << a + b << endl;
+    cout << a << " - " << b << " = " << a - b << endl;
+    cout << a << " * " << b << " = " << a * b << endl;
+    cout << a << " / " << b << " = " << a / b << endl;
+    
     return 0;
 }
