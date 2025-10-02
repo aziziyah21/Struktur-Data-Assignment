@@ -52,11 +52,7 @@ int main() {
 #### Output:
 <img width="934" height="302" alt="Screenshot 2025-10-01 223618" src="https://github.com/user-attachments/assets/284a82dc-9a0a-4762-a4cc-f190a942dff3" />
 
-
 Kode di atas digunakan untuk mencetak teks "ini adalah file code guided praktikan" ke layar menggunakan function cout untuk mengeksekusi nya.
-
-#### Full code Screenshot:
-![240309_10h21m35s_screenshot](https://github.com/suxeno/Struktur-Data-Assignment/assets/111122086/41e9641c-ad4e-4e50-9ca4-a0215e336b04)
 
 ### 2. [Soal]
 #include <iostream>
