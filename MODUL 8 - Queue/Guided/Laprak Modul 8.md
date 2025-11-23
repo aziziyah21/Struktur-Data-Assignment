@@ -4,7 +4,7 @@
 ## Dasar Teori
 Queue atau antrian adalah struktur data linear yang bekerja dengan prinsip FIFO(First In First Out), -> elemen yang pertama masuk akan menjadi elemen pertama yang dikeluarkan. Konsep ini mirip antrean di loket pelayanan, orang pertama dalam baris akan dilayani dulu. Nah, dalam pemrograman, struktur data queue dapat diimplementasikan menggunakan linked list serta array(tergantung kebutuhan memory dan fleksibilitas struktur) 
 Secara umum, queue memiliki dua operasi utama:
-1.	Enqueue, yaitu menambahkan data pada bagian tail (belakang).
+1. Enqueue, yaitu menambahkan data pada bagian tail (belakang).
 2. Dequeue, yaitu menghapus data pada bagian head (depan). 
 
 Kalo direpresentasi menggunakan linked list, setiap elemen direpresentasikan sebagai node dengan atribut (info) dan pointer (next), sementara struktur queue memuat dari pointer (head) dan (tail) sebagai penanda batas antrian. Ini yang bersifat dinamis, sehingga jumlah elemen bergantung pada ketersediaan memori. 
