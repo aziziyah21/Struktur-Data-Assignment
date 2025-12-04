@@ -775,7 +775,6 @@ Kode di atas adalah implementasi yang menggunakan array statis namun dengan meka
 Dari ketiga implementasi queue yang sudah dibuat, dapat disimpulkan bahwa queue adalah struktur data linear yang kerjanya mirip dengan prinsip FIFO (First In First Out), elemen pertama yang masuk akan menjadi elemen pertama yang keluar. Lalu, pada implementasi nomor 1 dan 2, queue menggunakan array linear sehingga indeks bergerak maju seiring operasi enQueue dan deQueue, namun ruang array tidak dapat digunakan kembali setelah elemen dihapus. Sedangkan pada nomor 3 itu menggunakan circular queue, dimana head dan tail bergerak secara melingkar menggunakan operasi modulo (% MAX), sehingga ruang array tetap dapat digunakan meskipun elemen depan sudah dihapus. Dengan begitu, ketiga implementasi menerapkan operasi dasar enQueue, deQueue, dan pengecekan kondisi queue, implementasi circular queue lebih optimal dalam pemanfaatan ruang penyimpanan dibandingkan queue linear.
 
 ## Referensi
-https://www.w3schools.com/cpp/cpp_queues.asp
-https://www.w3schools.com/cpp/cpp_deque.asp
-https://www.programiz.com/cpp-programming/queue
-Modul 8 Queue
+https://www.geeksforgeeks.org/cpp/binary-tree-in-cpp/
+https://www.programiz.com/dsa/trees
+Modul 10 Tree
