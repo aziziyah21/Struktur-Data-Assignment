@@ -1,4 +1,4 @@
-# <h1 align="center">Laporan Praktikum Modul Tree (10)</h1>
+# <h1 align="center">Laporan Praktikum Modul Tree - Bagian Pertama (10)</h1>
 <p align="center">Tadzkiroh Aziziyah Haqia</p>
 
 ## Dasar Teori
