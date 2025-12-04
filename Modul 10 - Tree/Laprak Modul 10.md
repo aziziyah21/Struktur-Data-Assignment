@@ -2,21 +2,20 @@
 <p align="center">Tadzkiroh Aziziyah Haqia</p>
 
 ## Dasar Teori
-Queue atau antrian adalah struktur data linear yang bekerja dengan prinsip FIFO(First In First Out), -> elemen yang pertama masuk akan menjadi elemen pertama yang dikeluarkan. Konsep ini mirip antrean di loket pelayanan, orang pertama dalam baris akan dilayani dulu. Nah, dalam pemrograman, struktur data queue dapat diimplementasikan menggunakan linked list serta array(tergantung kebutuhan memory dan fleksibilitas struktur) 
-Secara umum, queue memiliki dua operasi utama:
-1. Enqueue, yaitu menambahkan data pada bagian tail (belakang).
-2. Dequeue, yaitu menghapus data pada bagian head (depan). 
+Struktur Data Tree merupakan bentuk penyimpanan data yang tersusun secara hierarki. Setiap elemen itu di sebutnya node. Node paling atas itu dinamakan root dan dapat memiliki 2 anak, yaitu anak kiri dan kanan. Tree banyak digunakan karena mampu menyimpan data secara terstruktur sehingga proses pencarian, penambahan, dan pengolahan data dapat berjalan lebih cepat dibandingkan dengan struktur linear. Pada modul salah satu bentuk Tree yang paling sering digunakan adalah Binary Search Tree. Struktur ini memiliki aturan agar data berada di posisi yang tepat. Nilai yang lebih kecil dari root ditempatkan pada subtree kiri, sedangkan untuk nilai yang lebih besar ditempatkan pada subtree kanan. Aturan ini menjaga tree tetap terurut dan mempermudah proses pencarian karena setiap langkah akan mengarah lebih dekat ke data yang dicari.
 
-Kalo direpresentasi menggunakan linked list, setiap elemen direpresentasikan sebagai node dengan atribut (info) dan pointer (next), sementara struktur queue memuat dari pointer (head) dan (tail) sebagai penanda batas antrian. Ini yang bersifat dinamis, sehingga jumlah elemen bergantung pada ketersediaan memori. 
-Nahh, kalo direpresentasi menggunakan array, ini bersifat statis, sehingga jumlah elemen terbatas. 
-Di modul terdapat beberapa variasi implementasi, seperti:
--Alternatif 1: head tetap, tail bergerak (elemen digeser saat penghapusan).
--Alternatif 2: head dan tail bergerak, tetapi dapat terjadi kondisi penuh semu sehingga perlu pergeseran manual.
--Alternatif 3 (Circular Queue): indeks head dan tail berputar seperti buffer sehingga tidak perlu pergeseran elemen dan lebih efisien. 
+Proses penambahan data dalam Binary Search Tree berjalan secara rekursif. Setiap data baru akan dibandingkan dengan nilai pada node yang sedang ditunjuk. Jika lebih kecil maka bergerak ke kiri, dan jika lebih besar akan bergerak ke kanan. Penambahan berhenti saat menemukan node kosong. Aturan ini membuat struktur tree terbentuk secara alami sesuai urutan input pengguna. Tree juga menyediakan beberapa cara untuk menelusuri seluruh node, yang disebut traversal. Traversal penting untuk mengetahui isi tree, bentuk tree, atau melakukan proses tertentu pada semua node.
+
+Dalam modul terdapat 3 Traversal utama yang digunakan, yaitu:
+• Inorder. Membaca subtree kiri, lalu root, lalu subtree kanan. Hasilnya urut dari nilai kecil ke besar. (Left-Root-Right)
+• Preorder. Membaca root terlebih dahulu. Setelah itu subtree kiri dan subtree kanan. Traversal ini menunjukkan bentuk tree dari atas ke bawah. (Root-Left-Right)
+• Postorder. Membaca subtree kiri lalu subtree kanan dan terakhir root. Traversal ini berguna untuk proses penghapusan atau pembongkaran tree karena memastikan seluruh subtree selesai diproses sebelum node induk. (Left-Right-Root)
+
+Dari ketiga traversal tersebut memberikan perbedaan cara terhadap data di dalam tree. Inorder memberikan urutan terstruktur. Preorder memperlihatkan bentuk tree. Postorder membantu proses yang membutuhkan penyelesaian subtree terlebih dahulu. Dengan memahami aturan penambahan dan proses traversal dalam Binary Search Tree, jadi dapat diihat bagaimana tree mengatur data dengan efisien dan bagaimana setiap node diproses sesuai urutan tertentu.
 
 ## Guided
 
-### 1. [queue.h]
+### 1. [bst.h]
 #ifndef BST_H
 #define BST_H
 #define Nil NULL 
@@ -53,7 +52,7 @@ int height(BinTree tree);
 
 #endif
 
-### 2. [queue.cpp]
+### 2. [bst.cpp]
 #include "bst.h"
 #include <iostream>
 
@@ -435,7 +434,7 @@ Kode di atas adalah implementasi yang menggunakan linked list. Setiap elemen dis
 
 ## Unguided No 1
 
-### 1. [queue.h]
+### 1. [bstree.h]
 #ifndef BSTREE_H
 #define BSTREE_H
 #define Nil NULL
@@ -459,7 +458,7 @@ void printInorder(address root);
 
 #endif
 
-### 2. [queue.cpp]
+### 2. [bstree.cpp]
 #include "bstree.h"
 #include <iostream>
 using namespace std;
@@ -524,13 +523,14 @@ int main(){
 }
 
 ### [output]
-<img width="987" height="92" alt="Screenshot 2025-12-01 105717" src="https://github.com/user-attachments/assets/8646dd2e-5724-484c-be8c-72cbf18a2863" />
+<img width="987" height="92" alt="Screenshot 2025-12-01 105717" src="https://github.com/user-attachments/assets/2a367037-20e2-4bad-8ab4-08368c208e3a" />
 
-Kode di atas adalah implementasi yang menggunakan array statis dengan ukuran max 5 elemen. Untuk posisi data diatur menggunakan indeks head (elemen depan) dan tail (elemen belakang). Operasi enQueue menambahkan data ke bagian belakang sampai kapasitas terpenuhi, sedangkan operasi deQueue menghapus data dari bagian depan sesuai prinsip FIFO (First In First Out). Fungsi isEmpty dan isFull itu untuk memastikan kondisi antrian sebelum operasi dilakukan, dan printInfo menampilkan isi queue berdasarkan indeks dari head sampai tail. Jadi, dari implementasi ini tipe queue linear (karena indeks tidak berputar seperti circular queue dan elemen bergeser melalui perubahan pointer indeks saja).
+Kode di atas itu cara membangun struktur dasar Binary Search Tree. Tree dibuat dengan node yang memiliki nilai dan 2 pointer untuk anak kiri dan kanan. Proses penambahan data dilakukan dengan aturan perbandingan. Nilai yang lebih kecil dari root bergerak ke subtree kiri (} else if(x < root->info){), sedangkan untuk nilai yang lebih besar akan bergerak ke subtree kanan (} else if(x > root->info){). Penambahan berhenti ketika menemukan posisi kosong. Setelah tree terbentuk, program menampilkan seluruh isi tree menggunakan traversal inorder. Traversal ini membaca node kiri lalu root kemudian kanan. Hasilnya selalu terurut karena mengikuti pola struktur Binary Search Tree.
+
 
 ## Unguided No 2
 
-### 1. [queue.h]
+### 1. [bstree.h]
 #ifndef QUEUE_H
 #define QUEUE_H
 
@@ -555,7 +555,7 @@ void printInfo(Queue &Q);
 
 #endif
 
-### 2. [queue.cpp]
+### 2. [bstree.cpp]
 #include "queue.h"
 #include <iostream>
 using namespace std;
@@ -647,132 +647,164 @@ int main(){
 
 Kode di atas adalah implementasi yang menggunakan array statis dengan kapasitas max 5 elemen. Data disimpan dalam array (info[]), terus kalo variabel head dan tail untuk menentukan posisi elemen paling depan dan belakang dalam antrian. Operasi enQueue menambahkan elemen ke bagian tail, sedangkan operasi deQueue menghapus elemen dari head, sesuai prinsip FIFO (First In First Out). Kalo kondisi penuh dan kosong maka dicek menggunakan fungsi isFull dan isEmpty. Jika elemen terakhir dihapus, head dan tail di-reset menjadi -1 (untuk menandai queue kosong). Fungsi printInfo menampilkan isi antrian berdasarkan indeks dari head sampai tail. Jadi dari implementasi ini juga bersifat queue linear, sehingga indeks tidak berputar dan hanya bergeser dengan increment.
 
+
 ## Unguided No 3
 
-### 1. [queue.h]
-#ifndef QUEUE_H
-#define QUEUE_H
+### 1. [bstree.h]
+#ifndef BSTREE_H
+#define BSTREE_H
+#define Nil NULL
 
-#include <iostream>
 using namespace std;
 
-const int MAX = 5;
 typedef int infotype;
 
-struct Queue{
-    infotype info[MAX];
-    int head;
-    int tail;
+struct Node{
+    infotype info;
+    Node *left;
+    Node *right;
 };
 
-void createQueue(Queue &Q);
-bool isEmpty(Queue &Q);
-bool isFull(Queue &Q);
-void enQueue(Queue &Q, infotype x);
-void deQueue(Queue &Q);
-void printInfo(Queue &Q);
+typedef Node* address;
+
+address alokasi(infotype x);
+void insertNode(address &root, infotype x);
+address findNode(infotype x, address root);
+void printInorder(address root);
+
+int hitungJumlahNode(address root);
+int hitungTotalInfo(address root);
+int hitungKedalaman(address root, int start);
+
+void printPreorder(address root);
+void printPostorder(address root);
 
 #endif
 
-### 2. [queue.cpp]
-#include "queue.h"
+### 2. [bstree.cpp]
+#include "bstree.h"
 #include <iostream>
 using namespace std;
 
-void createQueue(Queue &Q){
-   Q.head = 0;
-   Q.tail = -1;
+address alokasi(infotype x){
+    address P = new Node;
+    P->info = x;
+    P->left = Nil;
+    P->right = Nil;
+    return P;
 }
 
-bool isEmpty(Queue &Q){
-    if(Q.tail < Q.head){
-        return true;
-    } else {
-        return false;
+void insertNode(address &root, infotype x){
+    if(root == Nil){
+        root = alokasi(x);
+    } else if(x < root->info){
+        insertNode(root->left, x);
+    } else if(x > root->info){
+        insertNode(root->right, x);
+    }
+} 
+
+address findNode(infotype x, address root){
+    if(root == Nil)
+    return Nil;
+    if(root->info == x)
+    return root;
+    if(x < root->info)
+    return findNode(x, root->left);
+    return findNode(x, root->right);
+}
+
+void printInorder(address root){
+    if(root != Nil){
+        printInorder(root->left);
+        cout << root->info << " - ";
+        printInorder(root->right); 
     }
 }
 
-bool isFull(Queue &Q){
-    if(Q.tail == MAX - 1){
-        return true;
-    } else {
-        return false;
+int hitungJumlahNode(address root){
+    if(root == Nil){
+        return 0;
+    }
+    return 1 + hitungJumlahNode(root->left) + hitungJumlahNode(root->right);
+}
+
+int hitungTotalInfo(address root){
+    if(root == Nil){
+        return 0;
+    }
+    return root->info + hitungJumlahNode(root->left) + hitungJumlahNode(root->right);
+}
+
+int hitungKedalaman(address root, int start){
+    if(root == Nil){
+        return start - 1;
+    }
+    int kiri = hitungKedalaman(root->left, start + 1);
+    int kanan = hitungKedalaman(root->right, start +1);
+    if(kiri > kanan){
+        return kiri;
+    }
+    return kanan;
+}
+
+void printPreorder(address root){
+    if(root != Nil){
+        cout << root->info << " - ";
+        printPreorder(root->left);
+        printPreorder(root->right);
     }
 }
 
-void enQueue(Queue &Q, infotype x){
-    if(isFull(Q)){
-        cout << "Queue sudah penuh" << endl;
-    } else {
-        Q.tail++;
-        Q.info[Q.tail] = x;
-    }
-}
-
-void deQueue(Queue &Q){
-    if(isEmpty(Q) == true){
-        cout << "Queue kosong!" << endl;
-    } else {
-        cout << "Mengahapus data " << Q.info[Q.head] << "..." << endl;
-        if(Q.head == Q.tail){
-            Q.head = -1;
-            Q.tail = -1;
-        } else {
-            Q.head = (Q.head + 1) % MAX; // bergerak melingkar
-        }
-    }
-}
-
-void printInfo(Queue &Q){
-    if(isEmpty(Q) == true){
-        cout << "Queue kosong!" << endl;
-    } else {
-        int i = Q.head;
-        int count = 1;
-        while(true){
-            cout << count << ". " << Q.info[i] << endl;
-            if(i == Q.tail){
-                break;
-            }
-            i = (i + 1) % MAX;
-            count++;
-        }   
+void printPostorder(address root){
+    if(root != Nil){
+        printPostorder(root->left);
+        printPostorder(root->right);
+        cout << root->info << " - ";
     }
 }
 
 ### 3. [main.cpp]
-#include "queue.h"
+#include "bstree.h"
 #include <iostream>
 using namespace std;
 
 int main(){
-    Queue Q;
+    cout << "Hello World" << endl;
 
-    createQueue(Q);
-    enQueue(Q, 5);
-    enQueue(Q, 2);
-    enQueue(Q, 7);
-    enQueue(Q, 4);
+    address root = Nil;
+    insertNode(root, 1);
+    insertNode(root, 2);
+    insertNode(root, 6);
+    insertNode(root, 4);
+    insertNode(root, 5);
+    insertNode(root, 3);
+    insertNode(root, 6);
+    insertNode(root, 7);
 
-    cout << "--- Isi Queue Setelah enQueue ---" << endl;
-    printInfo(Q);
+    cout << "Inorder: ";
+    printInorder(root);
+    cout << endl;
 
-    deQueue(Q);
-    deQueue(Q);
+    cout << "Preorder: ";
+    printPreorder(root);
+    cout << endl;
 
-    cout << "--- Isi Queue Setelah deQueue ---" << endl;
-    printInfo(Q);
+    cout << "Postorder: ";
+    printPostorder(root);
+    cout << endl;
 
     return 0;
 }
 
 ### [output]
-<img width="1004" height="266" alt="Screenshot 2025-11-23 104501" src="https://github.com/user-attachments/assets/867b587d-85bc-4c90-a79f-c36beaaf1118" />
+<img width="1007" height="140" alt="Screenshot 2025-12-04 133019" src="https://github.com/user-attachments/assets/5b18803e-4efc-4f6e-8ef7-1c2b4acd9cd1" />
 
-Kode di atas adalah implementasi yang menggunakan array statis namun dengan mekanisme circular queue. Dengan metode ini, indeks head dan tail dapat berputar kembali ke indeks awal menggunakan operasi modulo (% MAX), sehingga ruang array tetap dapat digunakan meskipun elemen depan sudah dihapus. Operasi enQueue menambahkan data pada posisi tail, sedangkan deQueue menghapus data dari posisi head, sesuai prinsip FIFO (First In First Out). Apabila elemen terakhir dihapus, nilai head dan tail di-reset menjadi -1 (untuk menandai queue kembali kosong). Fungsi printInfo menampilkan seluruh elemen dengan mengecek setiap indeks secara melingkar mulai dari head hingga tail. Jadi, dengan ini queue menjadi lebih efisien dibanding queue linear karena tidak memerlukan pergeseran elemen saat terjadi operasi penghapusan.
+Kode di atas itu akan print dua traversal tambahan yaitu preorder dan postorder. Traversal preorder itu membaca root terlebih dahulu, lalu subtree kiri dan subtree kanan. Traversal ini menunjukkan bentuk tree dari atas ke bawah. Traversal postorder itu membaca subtree kiri lalu subtree kanan dan terakhir root. Traversal ini digunakan saat proses yang memerlukan penyelesaian subtree sebelum root, misalnya saat menghapus seluruh node tree. Dengan memiliki tiga traversal. Inorder, preorder, dan postorder. Program dapat menampilkan isi tree dalam urutan terurut, atau dalam urutan pemrosesan subtree. Ini membuat tree jadi lebih mudah untuk dipahami.
+
 
 ## Kesimpulan
-Dari ketiga implementasi queue yang sudah dibuat, dapat disimpulkan bahwa queue adalah struktur data linear yang kerjanya mirip dengan prinsip FIFO (First In First Out), elemen pertama yang masuk akan menjadi elemen pertama yang keluar. Lalu, pada implementasi nomor 1 dan 2, queue menggunakan array linear sehingga indeks bergerak maju seiring operasi enQueue dan deQueue, namun ruang array tidak dapat digunakan kembali setelah elemen dihapus. Sedangkan pada nomor 3 itu menggunakan circular queue, dimana head dan tail bergerak secara melingkar menggunakan operasi modulo (% MAX), sehingga ruang array tetap dapat digunakan meskipun elemen depan sudah dihapus. Dengan begitu, ketiga implementasi menerapkan operasi dasar enQueue, deQueue, dan pengecekan kondisi queue, implementasi circular queue lebih optimal dalam pemanfaatan ruang penyimpanan dibandingkan queue linear.
+Dari ketiga implementasi Tree yang sudah dibuat, Struktur Binary Search Tree mempermudah penyimpanan dan penelusuran data karena setiap nilai ditempatkan berdasarkan aturan perbandingan. Tree yang terbentuk dapat dibaca menggunakan beberapa metode traversal untuk menampilkan isi data dari sudut yang berbeda. Di latihan nomor 1, Inorder memberi hasil terurut. Lalu, di nomor 3, Preorder membantu melihat bentuk struktur tree dan Postorder digunakan saat memproses subtree sampai selesai. Di latihan nomor 2 ini terdapat tambahan perhitungan jumlah node, total nilai, dan kedalaman membantu memahami karakteristik tree yang terbentuk dari urutan input. Dari ketiga latihan ini tuh mempelajari proses bagaimana tree dibuat, menelusuri data, serta bagaimana informasi penting dari tree dihitung.
 
 ## Referensi
 https://www.geeksforgeeks.org/cpp/binary-tree-in-cpp/
