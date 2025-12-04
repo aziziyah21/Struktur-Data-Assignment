@@ -429,8 +429,6 @@ int main() {
     return 0;
 }
 
-Kode di atas adalah implementasi yang menggunakan linked list. Setiap elemen disimpan sebagai node yang berisi nama dan pointer next, sehingga penambahan dan penghapusan elemen dilakukan secara dinamis. Terus pada operasi enQueue menambahkan data pada bagian belakang (tail), sedangkan operasi deQueue menghapus data dari bagian depan (head). Nahh itu sesuai dengan prinsip FIFO (First In First Out). Lalu, fungsi viewQueue digunakan untuk menampilkan seluruh isi antrian, dan fungsi clearQueue menghapus semua elemen hingga queue kosong. Jadi, dari kode program ini, dapat dilihat bagaimana pointer membuat queue fleksibel dalam pengelolaan data tanpa perlu menggeser indeks.
-
 
 ## Unguided No 1
 
@@ -531,121 +529,134 @@ Kode di atas itu cara membangun struktur dasar Binary Search Tree. Tree dibuat d
 ## Unguided No 2
 
 ### 1. [bstree.h]
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef BSTREE_H
+#define BSTREE_H
+#define Nil NULL
 
-#include <iostream>
 using namespace std;
 
-const int MAX = 5;
 typedef int infotype;
 
-struct Queue{
-    infotype info[MAX];
-    int head;
-    int tail;
+struct Node{
+    infotype info;
+    Node *left;
+    Node *right;
 };
 
-void createQueue(Queue &Q);
-bool isEmpty(Queue &Q);
-bool isFull(Queue &Q);
-void enQueue(Queue &Q, infotype x);
-void deQueue(Queue &Q);
-void printInfo(Queue &Q);
+typedef Node* address;
+
+address alokasi(infotype x);
+void insertNode(address &root, infotype x);
+address findNode(infotype x, address root);
+void printInorder(address root);
+
+int hitungJumlahNode(address root);
+int hitungTotalInfo(address root);
+int hitungKedalaman(address root, int start);
 
 #endif
 
 ### 2. [bstree.cpp]
-#include "queue.h"
+#include "bstree.h"
 #include <iostream>
 using namespace std;
 
-void createQueue(Queue &Q){
-   Q.head = 0;
-   Q.tail = -1;
+address alokasi(infotype x){
+    address P = new Node;
+    P->info = x;
+    P->left = Nil;
+    P->right = Nil;
+    return P;
 }
 
-bool isEmpty(Queue &Q){
-    if(Q.tail < Q.head){
-        return true;
-    } else {
-        return false;
+void insertNode(address &root, infotype x){
+    if(root == Nil){
+        root = alokasi(x);
+    } else if(x < root->info){
+        insertNode(root->left, x);
+    } else if(x > root->info){
+        insertNode(root->right, x);
+    }
+} 
+
+address findNode(infotype x, address root){
+    if(root == Nil)
+    return Nil;
+    if(root->info == x)
+    return root;
+    if(x < root->info)
+    return findNode(x, root->left);
+    return findNode(x, root->right);
+}
+
+void printInorder(address root){
+    if(root != Nil){
+        printInorder(root->left);
+        cout << root->info << " - ";
+        printInorder(root->right); 
     }
 }
 
-bool isFull(Queue &Q){
-    if(Q.tail == MAX - 1){
-        return true;
-    } else {
-        return false;
+int hitungJumlahNode(address root){
+    if(root == Nil){
+        return 0;
     }
+    return 1 + hitungJumlahNode(root->left) + hitungJumlahNode(root->right);
 }
 
-void enQueue(Queue &Q, infotype x){
-    if(isFull(Q)){
-        cout << "Queue sudah penuh" << endl;
-    } else {
-        Q.tail++;
-        Q.info[Q.tail] = x;
+int hitungTotalInfo(address root){
+    if(root == Nil){
+        return 0;
     }
+    return root->info 
+        + hitungTotalInfo(root->left) 
+        + hitungTotalInfo(root->right);
 }
 
-void deQueue(Queue &Q){
-    if(isEmpty(Q)){
-        cout << "Queue kosong" << endl;
-        return;
-    } else {
-        cout << "Mengahapus data " << Q.info[Q.head] << "..." << endl;
-        if(Q.head == Q.tail){
-            Q.head = -1;
-            Q.tail = -1;
-        } else {
-            Q.head++;
-        }
+int hitungKedalaman(address root, int start){
+    if(root == Nil){
+        return start - 1;
     }
-}
-
-void printInfo(Queue &Q){
-    if(isEmpty(Q) == true){
-        cout << "Queue kosong!" << endl;
-    }else{
-        for(int i = Q.head; i <= Q.tail; i++){
-            cout << i -  Q.head + 1 << ". " << Q.info[i] << endl;
-        }
+    int kiri = hitungKedalaman(root->left, start + 1);
+    int kanan = hitungKedalaman(root->right, start +1);
+    if(kiri > kanan){
+        return kiri;
     }
-    cout << endl;
+    return kanan;
 }
 
 ### 3. [main.cpp]
-#include "queue.h"
+#include "bstree.h"
 #include <iostream>
 using namespace std;
 
 int main(){
-    Queue Q;
+    cout << "Hello World" << endl;
 
-    createQueue(Q);
-    enQueue(Q, 5);
-    enQueue(Q, 2);
-    enQueue(Q, 7);
-    enQueue(Q, 4);
+    address root = Nil;
+    insertNode(root, 1);
+    insertNode(root, 2);
+    insertNode(root, 6);
+    insertNode(root, 4);
+    insertNode(root, 5);
+    insertNode(root, 3);
+    insertNode(root, 6);
+    insertNode(root, 7);
 
-    cout << "--- Isi Queue Setelah enQueue ---" << endl;
-    printInfo(Q);
+    printInorder(root);
 
-    deQueue(Q);
-    deQueue(Q);
-
-    cout << "--- Isi Queue Setelah deQueue ---" << endl;
-    printInfo(Q);
+    cout << endl;
+    cout << "Kedalaman: " << hitungKedalaman(root, 0) << endl;
+    cout << "Jumlah node: " << hitungJumlahNode(root) << endl;
+    cout << "Total: " << hitungTotalInfo(root) << endl;
 
     return 0;
 }
 
 ### [output]
-<img width="1052" height="303" alt="Screenshot 2025-11-23 103927" src="https://github.com/user-attachments/assets/be1fcfb2-7b1c-479d-b10e-85ed66f772a8" />
+<img width="1055" height="159" alt="Screenshot 2025-12-01 113035" src="https://github.com/user-attachments/assets/708b3673-2ee7-47b2-a4a6-ae2dae567f05" />
 
-Kode di atas adalah implementasi yang menggunakan array statis dengan kapasitas max 5 elemen. Data disimpan dalam array (info[]), terus kalo variabel head dan tail untuk menentukan posisi elemen paling depan dan belakang dalam antrian. Operasi enQueue menambahkan elemen ke bagian tail, sedangkan operasi deQueue menghapus elemen dari head, sesuai prinsip FIFO (First In First Out). Kalo kondisi penuh dan kosong maka dicek menggunakan fungsi isFull dan isEmpty. Jika elemen terakhir dihapus, head dan tail di-reset menjadi -1 (untuk menandai queue kosong). Fungsi printInfo menampilkan isi antrian berdasarkan indeks dari head sampai tail. Jadi dari implementasi ini juga bersifat queue linear, sehingga indeks tidak berputar dan hanya bergeser dengan increment.
+Kode di atas itu menambahkan fungsi untuk menghitung informasi dari tree. Fungsi petama menghitung kedalaman tree untuk mengetahui level terdalam yang dimiliki tree. Prosesnya berjalan rekursif dengan membandingkan kedalaman subtree kiri dan kanan. Fungsi kedua menghitung jumlah node dengan cara menjumlahkan seluruh node di subtree kiri dan kanan lalu menambah satu untuk node saat ini. Fungsi ketiga menghitung total nilai dari seluruh node, yaitu dengan menjumlahkan nilai root dengan nilai dari subtree kiri dan kanan. Latihan ini membantu memahami bagaimana tree dapat dianalisis.
 
 
 ## Unguided No 3
