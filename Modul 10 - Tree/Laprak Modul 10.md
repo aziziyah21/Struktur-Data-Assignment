@@ -784,13 +784,12 @@ int main(){
     cout << "Hello World" << endl;
 
     address root = Nil;
-    insertNode(root, 1);
-    insertNode(root, 2);
     insertNode(root, 6);
     insertNode(root, 4);
-    insertNode(root, 5);
+    insertNode(root, 2);
+    insertNode(root, 1);
     insertNode(root, 3);
-    insertNode(root, 6);
+    insertNode(root, 5);
     insertNode(root, 7);
 
     cout << "Inorder: ";
@@ -809,7 +808,7 @@ int main(){
 }
 
 ### [output]
-<img width="1007" height="140" alt="Screenshot 2025-12-04 133019" src="https://github.com/user-attachments/assets/5b18803e-4efc-4f6e-8ef7-1c2b4acd9cd1" />
+<img width="1148" height="138" alt="Screenshot 2025-12-05 151054" src="https://github.com/user-attachments/assets/47072aa1-e471-4c3b-a01f-632d084a866f" />
 
 Kode di atas itu akan print dua traversal tambahan yaitu preorder dan postorder. Traversal preorder itu membaca root terlebih dahulu, lalu subtree kiri dan subtree kanan. Traversal ini menunjukkan bentuk tree dari atas ke bawah. Traversal postorder itu membaca subtree kiri lalu subtree kanan dan terakhir root. Traversal ini digunakan saat proses yang memerlukan penyelesaian subtree sebelum root, misalnya saat menghapus seluruh node tree. Dengan memiliki tiga traversal. Inorder, preorder, dan postorder. Program dapat menampilkan isi tree dalam urutan terurut, atau dalam urutan pemrosesan subtree. Ini membuat tree jadi lebih mudah untuk dipahami.
 
