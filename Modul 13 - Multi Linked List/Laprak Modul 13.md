@@ -711,21 +711,21 @@ int main() {
 using namespace std;
 
 struct mahasiswa {
-string nama;
-string nim;
-char jenis_kelamin;
-float ipk;
+    string nama;
+    string nim;
+    char jenis_kelamin;
+    float ipk;
 };
 
 typedef struct ElmList* address;
 
 struct ElmList {
-mahasiswa info;
-address next;
+    mahasiswa info;
+    address next;
 };
 
 struct List {
-address first;
+    address first;
 };
 
 void createList(List &L);
