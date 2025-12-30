@@ -857,21 +857,26 @@ P = P->next;
 } while(P != L.first);
 return NULL;
 }
-
 void printInfo(List L){
-if(L.first == NULL){
-cout << "List kosong" << endl;
-} else {
-address P = L.first;
-do{
-cout << P->info.nama << " ";
-cout << P->info.nim << " ";
-cout << P->info.jenis_kelamin << " ";
-cout << P->info.ipk << endl;
-P = P->next;
-} while(P != L.first);
+    if(L.first == NULL){
+        cout << "List kosong" << endl;
+    } else {
+        address P = L.first;
+        int i = 1;
+        cout << "Data Mahasiswa" << endl;
+        do{
+            cout << "Mahasiswa ke-" << i << endl;
+            cout << "Nama          : " << P->info.nama << endl;
+            cout << "NIM           : " << P->info.nim << endl;
+            cout << "P/L           : " << P->info.jenis_kelamin << endl;
+            cout << "IPK           : " << P->info.ipk << endl;
+            cout << endl;
+            P = P->next;
+            i++;
+        } while(P != L.first);
+    }
 }
-}
+
 
 Berisi kode implementasi dari semua fungsi yang telah dideklarasikan di dalam header. Fungsi createList digunakan untuk membuat list yang kosong. Fungsi alokasi digunakan untuk membuat node baru dan mengisi data mahasiswa didalamnya. Operasi insertFirst, insertLast, dan insertAfter digunakan untuk menyisipkan node ke dalam circular linked list secara tepat, sehingga node terakhir tetap menunjuk kembali ke node pertama. Sementara itu, fungsi deleteFirst, deleteLast, dan deleteAfter digunakan untuk menghapus node tanpa mengganggu struktur melingkar dari list. Fungsi findElm digunakan untuk mencari data mahasiswa berdasarkan NIM, sedangkan fungsi printInfo digunakan untuk menampilkan seluruh data secara berurutan.
 
@@ -938,7 +943,7 @@ return 0;
 Ini program utama yang digunakan untuk menguji ADT circular linked list. Terdapat fungsi createData yang bertujuan memudahkan dalam pembuatan data mahasiswa. Pada bagian main, list diinisialisasi terlebih dahulu, kemudian beberapa data mahasiswa dimasukkan menggunakan fungsi insertFirst dan insertLast. Selanjutnya dilakukan pencarian data berdasarkan NIM dan penambahan data baru menggunakan fungsi insertAfter. Akhirnya, fungsi printInfo dipanggil untuk menampilkan seluruh isi list ke layar.
 
 ### [output]
-<img width="1120" height="202" alt="Screenshot 2025-12-30 113910" src="https://github.com/user-attachments/assets/2ddc919f-8eda-48cf-8b80-f62a93e3f578" />
+<img width="260" height="910" alt="Screenshot 2025-12-30 134208" src="https://github.com/user-attachments/assets/55b3619c-eba5-4a5c-be84-27e917bab513" />
 
 Kode di atas itu menampilkan seluruh data mahasiswa yang tersimpan dalam circular linked list. Data yang ditampilkan dilakukan secara berurutan sesuai dengan urutan proses penyisipan. Setiap baris output menampilkan nama mahasiswa, NIM, jenis kelamin, dan IPK secara terpisah. Hasil ini menunjukkan bahwa cara insert, pencarian, dan insertAfter berjalan dengan baik serta struktur circular linked list masih terjaga karena traversal dapat kembali ke node pertama tanpa kesalahan.
 
