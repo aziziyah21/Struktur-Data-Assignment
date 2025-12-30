@@ -110,18 +110,22 @@ P = P->next;
 } while(P != L.first);
 return NULL;
 }
-
 void printInfo(List L){
-if(L.first == NULL){
-cout << "List kosong" << endl;
-} else {
-address P = L.first;
-do{
-cout << P->info.nama << " ";
-cout << P->info.nim << " ";
-cout << P->info.jenis_kelamin << " ";
-cout << P->info.ipk << endl;
-P = P->next;
-} while(P != L.first);
-}
+    if(L.first == NULL){
+        cout << "List kosong" << endl;
+    } else {
+        address P = L.first;
+        int i = 1;
+        cout << "Data Mahasiswa" << endl;
+        do{
+            cout << "Mahasiswa ke-" << i << endl;
+            cout << "Nama          : " << P->info.nama << endl;
+            cout << "NIM           : " << P->info.nim << endl;
+            cout << "P/L           : " << P->info.jenis_kelamin << endl;
+            cout << "IPK           : " << P->info.ipk << endl;
+            cout << endl;
+            P = P->next;
+            i++;
+        } while(P != L.first);
+    }
 }
