@@ -2,16 +2,12 @@
 <p align="center">Tadzkiroh Aziziyah Haqia</p>
 
 ## Dasar Teori
-Struktur Data Tree merupakan bentuk penyimpanan data yang tersusun secara hierarki. Setiap elemen itu di sebutnya node. Node paling atas itu dinamakan root dan dapat memiliki 2 anak, yaitu anak kiri dan kanan. Tree banyak digunakan karena mampu menyimpan data secara terstruktur sehingga proses pencarian, penambahan, dan pengolahan data dapat berjalan lebih cepat dibandingkan dengan struktur linear. Pada modul salah satu bentuk Tree yang paling sering digunakan adalah Binary Search Tree. Struktur ini memiliki aturan agar data berada di posisi yang tepat. Nilai yang lebih kecil dari root ditempatkan pada subtree kiri, sedangkan untuk nilai yang lebih besar ditempatkan pada subtree kanan. Aturan ini menjaga tree tetap terurut dan mempermudah proses pencarian karena setiap langkah akan mengarah lebih dekat ke data yang dicari.
+Multi Linked List adalah jenis struktur data yang digunakan untuk menunjukkan hubungan antar data yang memiliki satu ke banyak. Struktur ini terdiri dari node induk dan node anak, di mana setiap node induk bisa memiliki beberapa node anak. Node-node induk saling terhubung dalam sebuah list induk, sementara setiap node induk memiliki list anak yang menyimpan data yang terkait langsung dengannya. Untuk mengakses node anak, kita harus melalui node induk yang bersangkutan.
 
-Proses penambahan data dalam Binary Search Tree berjalan secara rekursif. Setiap data baru akan dibandingkan dengan nilai pada node yang sedang ditunjuk. Jika lebih kecil maka bergerak ke kiri, dan jika lebih besar akan bergerak ke kanan. Penambahan berhenti saat menemukan node kosong. Aturan ini membuat struktur tree terbentuk secara alami sesuai urutan input pengguna. Tree juga menyediakan beberapa cara untuk menelusuri seluruh node, yang disebut traversal. Traversal penting untuk mengetahui isi tree, bentuk tree, atau melakukan proses tertentu pada semua node.
+Dalam Multi Linked List, beberapa operasi dasar bisa dilakukan, seperti membuat list, menambah node induk, menambah node anak pada node induk tertentu, menghapus node induk beserta semua node anaknya, dan mencari data.
+Struktur ini sering dipakai untuk memodelkan data yang memiliki hubungan hierarki, seperti mahasiswa dan mata kuliah, dosen dan kelas, atau kategori dan item. Meskipun implementasinya lebih rumit dibandingkan linked list biasa, Multi Linked List memberikan fleksibilitas tinggi dalam mengelola data yang saling terhubung.
 
-Dalam modul terdapat 3 Traversal utama yang digunakan, yaitu:
-• Inorder. Membaca subtree kiri, lalu root, lalu subtree kanan. Hasilnya urut dari nilai kecil ke besar. (Left-Root-Right)
-• Preorder. Membaca root terlebih dahulu. Setelah itu subtree kiri dan subtree kanan. Traversal ini menunjukkan bentuk tree dari atas ke bawah. (Root-Left-Right)
-• Postorder. Membaca subtree kiri lalu subtree kanan dan terakhir root. Traversal ini berguna untuk proses penghapusan atau pembongkaran tree karena memastikan seluruh subtree selesai diproses sebelum node induk. (Left-Right-Root)
-
-Dari ketiga traversal tersebut memberikan perbedaan cara terhadap data di dalam tree. Inorder memberikan urutan terstruktur. Preorder memperlihatkan bentuk tree. Postorder membantu proses yang membutuhkan penyelesaian subtree terlebih dahulu. Dengan memahami aturan penambahan dan proses traversal dalam Binary Search Tree, jadi dapat diihat bagaimana tree mengatur data dengan efisien dan bagaimana setiap node diproses sesuai urutan tertentu.
+Menggunakan linked list berantai mempermudah pengelolaan data agar lebih rapi, karena setiap data anak hanya terhubung ke satu data induk tertentu. Hal ini membantu menjaga data tetap konsisten dan memudahkan proses mencari, menambah, serta menghapus data berdasarkan hubungannya. Dalam membuat program, struktur linked list berantai membutuhkan perhatian dalam pengaturan pointer agar hubungan antar node tetap benar dan tidak menyebabkan kesalahan saat mengakses data. Karena itu, memahami konsep linked list berantai sangat penting dalam pengembangan sistem yang memiliki hubungan data bertingkat.
 
 ## Guided
 
@@ -703,393 +699,254 @@ int main() {
 }
 
 
-## Unguided No 1
+## Unguided
 
-### 1. [bstree.h]
-#ifndef BSTREE_H
-#define BSTREE_H
-#define Nil NULL
+### 1. [circularlist.h]
+#ifndef CIRCULARLIST_H
+#define CIRCULARLIST_H
+
+#include <iostream>
+#include <string>
 
 using namespace std;
 
-typedef int infotype;
-
-struct Node{
-    infotype info;
-    Node *left;
-    Node *right;
+struct mahasiswa {
+string nama;
+string nim;
+char jenis_kelamin;
+float ipk;
 };
 
-typedef Node* address;
+typedef struct ElmList* address;
 
-address alokasi(infotype x);
-void insertNode(address &root, infotype x);
-address findNode(infotype x, address root);
-void printInorder(address root);
+struct ElmList {
+mahasiswa info;
+address next;
+};
+
+struct List {
+address first;
+};
+
+void createList(List &L);
+address alokasi(mahasiswa x);
+void dealokasi(address &P);
+void insertFirst(List &L, address P);
+void insertAfter(List &L, address Prec, address P);
+void insertLast(List &L, address P);
+void deleteFirst(List &L, address &P);
+void deleteAfter(List &L, address Prec, address &P);
+void deleteLast(List &L, address &P);
+address findElm(List L, mahasiswa x);
+void printInfo(List L);
 
 #endif
 
-### 2. [bstree.cpp]
-#include "bstree.h"
-#include <iostream>
-using namespace std;
+File header yang mendefinisikan struktur data dan prototipe fungsi yang digunakan. Ini terdapat sebuah struktur bernama mahasiswa yang berisi informasi seperti nama, NIM, jenis kelamin, dan IPK. Selain itu, terdapat struktur ElmList yang berfungsi sebagai node, yang berisi data mahasiswa dan pointer next. Pointer next digunakan untuk menghubungkan satu node ke node berikutnya secara melingkar. Struktur List hanya memiliki satu pointer bernama first, yang menunjuk ke node pertama. File ini juga mendeklarasikan berbagai operasi dasar dari circular linked list, seperti menambahkan, menghapus, mencari, serta menampilkan data.
 
-address alokasi(infotype x){
-    address P = new Node;
-    P->info = x;
-    P->left = Nil;
-    P->right = Nil;
-    return P;
+### 2. [circularlist.cpp]
+#include "circularlist.h"
+
+void createList(List &L){
+L.first = NULL;
 }
 
-void insertNode(address &root, infotype x){
-    if(root == Nil){
-        root = alokasi(x);
-    } else if(x < root->info){
-        insertNode(root->left, x);
-    } else if(x > root->info){
-        insertNode(root->right, x);
-    }
-} 
-
-address findNode(infotype x, address root){
-    if(root == Nil)
-    return Nil;
-    if(root->info == x)
-    return root;
-    if(x < root->info)
-    return findNode(x, root->left);
-    return findNode(x, root->right);
+address alokasi(mahasiswa x){
+address P = new ElmList;
+P->info = x;
+P->next = NULL;
+return P;
 }
 
-void printInorder(address root){
-    if(root != Nil){
-        printInorder(root->left);
-        cout << root->info << " - ";
-        printInorder(root->right); 
-    }
+void dealokasi(address &P){
+delete P;
+P = NULL;
 }
+
+void insertFirst(List &L, address P){
+if(L.first == NULL){
+L.first = P;
+P->next = P;
+} else {
+address Q = L.first;
+while(Q->next != L.first){
+Q = Q->next;
+}
+P->next = L.first;
+Q->next = P;
+L.first = P;
+}
+}
+
+void insertLast(List &L, address P){
+if(L.first == NULL){
+L.first = P;
+P->next = P;
+} else {
+address Q = L.first;
+while(Q->next != L.first){
+Q = Q->next;
+}
+Q->next = P;
+P->next = L.first;
+}
+}
+
+void insertAfter(List &L, address Prec, address P){
+if(Prec != NULL){
+P->next = Prec->next;
+Prec->next = P;
+}
+}
+
+void deleteFirst(List &L, address &P){
+if(L.first == NULL){
+P = NULL;
+} else if(L.first->next == L.first){
+P = L.first;
+L.first = NULL;
+} else {
+address Q = L.first;
+while(Q->next != L.first){
+Q = Q->next;
+}
+P = L.first;
+L.first = L.first->next;
+Q->next = L.first;
+P->next = NULL;
+}
+}
+
+void deleteLast(List &L, address &P){
+if(L.first == NULL){
+P = NULL;
+} else if(L.first->next == L.first){
+P = L.first;
+L.first = NULL;
+} else {
+address Q = L.first;
+address R = NULL;
+while(Q->next != L.first){
+R = Q;
+Q = Q->next;
+}
+R->next = L.first;
+P = Q;
+P->next = NULL;
+}
+}
+
+void deleteAfter(List &L, address Prec, address &P){
+if(Prec != NULL && Prec->next != L.first){
+P = Prec->next;
+Prec->next = P->next;
+P->next = NULL;
+}
+}
+
+address findElm(List L, mahasiswa x){
+if(L.first == NULL){
+return NULL;
+}
+address P = L.first;
+do{
+if(P->info.nim == x.nim){
+return P;
+}
+P = P->next;
+} while(P != L.first);
+return NULL;
+}
+
+void printInfo(List L){
+if(L.first == NULL){
+cout << "List kosong" << endl;
+} else {
+address P = L.first;
+do{
+cout << P->info.nama << " ";
+cout << P->info.nim << " ";
+cout << P->info.jenis_kelamin << " ";
+cout << P->info.ipk << endl;
+P = P->next;
+} while(P != L.first);
+}
+}
+
+Berisi kode implementasi dari semua fungsi yang telah dideklarasikan di dalam header. Fungsi createList digunakan untuk membuat list yang kosong. Fungsi alokasi digunakan untuk membuat node baru dan mengisi data mahasiswa didalamnya. Operasi insertFirst, insertLast, dan insertAfter digunakan untuk menyisipkan node ke dalam circular linked list secara tepat, sehingga node terakhir tetap menunjuk kembali ke node pertama. Sementara itu, fungsi deleteFirst, deleteLast, dan deleteAfter digunakan untuk menghapus node tanpa mengganggu struktur melingkar dari list. Fungsi findElm digunakan untuk mencari data mahasiswa berdasarkan NIM, sedangkan fungsi printInfo digunakan untuk menampilkan seluruh data secara berurutan.
 
 ### 3. [main.cpp]
-#include "bstree.h"
-#include <iostream>
-using namespace std;
+#include "circularlist.h"
+
+mahasiswa createData(string nama, string nim, char jenis_kelamin, float ipk){
+mahasiswa x;
+x.nama = nama;
+x.nim = nim;
+x.jenis_kelamin = jenis_kelamin;
+x.ipk = ipk;
+return x;
+}
 
 int main(){
-    cout << "Hello World" << endl;
+List L;
+address P1, P2;
+mahasiswa x;
 
-    address root = Nil;
-    insertNode(root, 1);
-    insertNode(root, 2);
-    insertNode(root, 6);
-    insertNode(root, 4);
-    insertNode(root, 5);
-    insertNode(root, 3);
-    insertNode(root, 6);
-    insertNode(root, 7);
+createList(L);
 
-    printInorder(root);
+P1 = alokasi(createData("Danu", "04", 'L', 4.0));
+insertFirst(L, P1);
 
-    return 0;
+P1 = alokasi(createData("Fahmi", "06", 'L', 3.45));
+insertLast(L, P1);
+
+P1 = alokasi(createData("Bobi", "02", 'L', 3.71));
+insertLast(L, P1);
+
+P1 = alokasi(createData("Ali", "01", 'L', 3.3));
+insertFirst(L, P1);
+
+P1 = alokasi(createData("Gita", "07", 'P', 3.75));
+insertLast(L, P1);
+
+x.nim = "03";
+P1 = findElm(L, x);
+if(P1 != NULL){
+    P2 = alokasi(createData("Cindi", "03", 'P', 3.5));
+    insertAfter(L, P1, P2);
 }
+
+x.nim = "02";
+P1 = findElm(L, x);
+if(P1 != NULL){
+    P2 = alokasi(createData("Hilmi", "08", 'P', 3.3));
+    insertAfter(L, P1, P2);
+}
+
+x.nim = "04";
+P1 = findElm(L, x);
+if(P1 != NULL){
+    P2 = alokasi(createData("Eli", "05", 'P', 3.4));
+    insertAfter(L, P1, P2);
+}
+
+printInfo(L);
+return 0;
+
+}
+
+Ini program utama yang digunakan untuk menguji ADT circular linked list. Terdapat fungsi createData yang bertujuan memudahkan dalam pembuatan data mahasiswa. Pada bagian main, list diinisialisasi terlebih dahulu, kemudian beberapa data mahasiswa dimasukkan menggunakan fungsi insertFirst dan insertLast. Selanjutnya dilakukan pencarian data berdasarkan NIM dan penambahan data baru menggunakan fungsi insertAfter. Akhirnya, fungsi printInfo dipanggil untuk menampilkan seluruh isi list ke layar.
 
 ### [output]
-<img width="987" height="92" alt="Screenshot 2025-12-01 105717" src="https://github.com/user-attachments/assets/2a367037-20e2-4bad-8ab4-08368c208e3a" />
+<img width="1120" height="202" alt="Screenshot 2025-12-30 113910" src="https://github.com/user-attachments/assets/2ddc919f-8eda-48cf-8b80-f62a93e3f578" />
 
-Kode di atas itu cara membangun struktur dasar Binary Search Tree. Tree dibuat dengan node yang memiliki nilai dan 2 pointer untuk anak kiri dan kanan. Proses penambahan data dilakukan dengan aturan perbandingan. Nilai yang lebih kecil dari root bergerak ke subtree kiri (} else if(x < root->info){), sedangkan untuk nilai yang lebih besar akan bergerak ke subtree kanan (} else if(x > root->info){). Penambahan berhenti ketika menemukan posisi kosong. Setelah tree terbentuk, program menampilkan seluruh isi tree menggunakan traversal inorder. Traversal ini membaca node kiri lalu root kemudian kanan. Hasilnya selalu terurut karena mengikuti pola struktur Binary Search Tree.
-
-
-## Unguided No 2
-
-### 1. [bstree.h]
-#ifndef BSTREE_H
-#define BSTREE_H
-#define Nil NULL
-
-using namespace std;
-
-typedef int infotype;
-
-struct Node{
-    infotype info;
-    Node *left;
-    Node *right;
-};
-
-typedef Node* address;
-
-address alokasi(infotype x);
-void insertNode(address &root, infotype x);
-address findNode(infotype x, address root);
-void printInorder(address root);
-
-int hitungJumlahNode(address root);
-int hitungTotalInfo(address root);
-int hitungKedalaman(address root, int start);
-
-#endif
-
-### 2. [bstree.cpp]
-#include "bstree.h"
-#include <iostream>
-using namespace std;
-
-address alokasi(infotype x){
-    address P = new Node;
-    P->info = x;
-    P->left = Nil;
-    P->right = Nil;
-    return P;
-}
-
-void insertNode(address &root, infotype x){
-    if(root == Nil){
-        root = alokasi(x);
-    } else if(x < root->info){
-        insertNode(root->left, x);
-    } else if(x > root->info){
-        insertNode(root->right, x);
-    }
-} 
-
-address findNode(infotype x, address root){
-    if(root == Nil)
-    return Nil;
-    if(root->info == x)
-    return root;
-    if(x < root->info)
-    return findNode(x, root->left);
-    return findNode(x, root->right);
-}
-
-void printInorder(address root){
-    if(root != Nil){
-        printInorder(root->left);
-        cout << root->info << " - ";
-        printInorder(root->right); 
-    }
-}
-
-int hitungJumlahNode(address root){
-    if(root == Nil){
-        return 0;
-    }
-    return 1 + hitungJumlahNode(root->left) + hitungJumlahNode(root->right);
-}
-
-int hitungTotalInfo(address root){
-    if(root == Nil){
-        return 0;
-    }
-    return root->info 
-        + hitungTotalInfo(root->left) 
-        + hitungTotalInfo(root->right);
-}
-
-int hitungKedalaman(address root, int start){
-    if(root == Nil){
-        return start - 1;
-    }
-    int kiri = hitungKedalaman(root->left, start + 1);
-    int kanan = hitungKedalaman(root->right, start +1);
-    if(kiri > kanan){
-        return kiri;
-    }
-    return kanan;
-}
-
-### 3. [main.cpp]
-#include "bstree.h"
-#include <iostream>
-using namespace std;
-
-int main(){
-    cout << "Hello World" << endl;
-
-    address root = Nil;
-    insertNode(root, 1);
-    insertNode(root, 2);
-    insertNode(root, 6);
-    insertNode(root, 4);
-    insertNode(root, 5);
-    insertNode(root, 3);
-    insertNode(root, 6);
-    insertNode(root, 7);
-
-    printInorder(root);
-
-    cout << endl;
-    cout << "Kedalaman: " << hitungKedalaman(root, 0) << endl;
-    cout << "Jumlah node: " << hitungJumlahNode(root) << endl;
-    cout << "Total: " << hitungTotalInfo(root) << endl;
-
-    return 0;
-}
-
-### [output]
-<img width="1055" height="159" alt="Screenshot 2025-12-01 113035" src="https://github.com/user-attachments/assets/708b3673-2ee7-47b2-a4a6-ae2dae567f05" />
-
-Kode di atas itu menambahkan fungsi untuk menghitung informasi dari tree. Fungsi petama menghitung kedalaman tree untuk mengetahui level terdalam yang dimiliki tree. Prosesnya berjalan rekursif dengan membandingkan kedalaman subtree kiri dan kanan. Fungsi kedua menghitung jumlah node dengan cara menjumlahkan seluruh node di subtree kiri dan kanan lalu menambah satu untuk node saat ini. Fungsi ketiga menghitung total nilai dari seluruh node, yaitu dengan menjumlahkan nilai root dengan nilai dari subtree kiri dan kanan. Latihan ini membantu memahami bagaimana tree dapat dianalisis.
-
-
-## Unguided No 3
-
-### 1. [bstree.h]
-#ifndef BSTREE_H
-#define BSTREE_H
-#define Nil NULL
-
-using namespace std;
-
-typedef int infotype;
-
-struct Node{
-    infotype info;
-    Node *left;
-    Node *right;
-};
-
-typedef Node* address;
-
-address alokasi(infotype x);
-void insertNode(address &root, infotype x);
-address findNode(infotype x, address root);
-void printInorder(address root);
-
-int hitungJumlahNode(address root);
-int hitungTotalInfo(address root);
-int hitungKedalaman(address root, int start);
-
-void printPreorder(address root);
-void printPostorder(address root);
-
-#endif
-
-### 2. [bstree.cpp]
-#include "bstree.h"
-#include <iostream>
-using namespace std;
-
-address alokasi(infotype x){
-    address P = new Node;
-    P->info = x;
-    P->left = Nil;
-    P->right = Nil;
-    return P;
-}
-
-void insertNode(address &root, infotype x){
-    if(root == Nil){
-        root = alokasi(x);
-    } else if(x < root->info){
-        insertNode(root->left, x);
-    } else if(x > root->info){
-        insertNode(root->right, x);
-    }
-} 
-
-address findNode(infotype x, address root){
-    if(root == Nil)
-    return Nil;
-    if(root->info == x)
-    return root;
-    if(x < root->info)
-    return findNode(x, root->left);
-    return findNode(x, root->right);
-}
-
-void printInorder(address root){
-    if(root != Nil){
-        printInorder(root->left);
-        cout << root->info << " - ";
-        printInorder(root->right); 
-    }
-}
-
-int hitungJumlahNode(address root){
-    if(root == Nil){
-        return 0;
-    }
-    return 1 + hitungJumlahNode(root->left) + hitungJumlahNode(root->right);
-}
-
-int hitungTotalInfo(address root){
-    if(root == Nil){
-        return 0;
-    }
-    return root->info + hitungJumlahNode(root->left) + hitungJumlahNode(root->right);
-}
-
-int hitungKedalaman(address root, int start){
-    if(root == Nil){
-        return start - 1;
-    }
-    int kiri = hitungKedalaman(root->left, start + 1);
-    int kanan = hitungKedalaman(root->right, start +1);
-    if(kiri > kanan){
-        return kiri;
-    }
-    return kanan;
-}
-
-void printPreorder(address root){
-    if(root != Nil){
-        cout << root->info << " - ";
-        printPreorder(root->left);
-        printPreorder(root->right);
-    }
-}
-
-void printPostorder(address root){
-    if(root != Nil){
-        printPostorder(root->left);
-        printPostorder(root->right);
-        cout << root->info << " - ";
-    }
-}
-
-### 3. [main.cpp]
-#include "bstree.h"
-#include <iostream>
-using namespace std;
-
-int main(){
-    cout << "Hello World" << endl;
-
-    address root = Nil;
-    insertNode(root, 6);
-    insertNode(root, 4);
-    insertNode(root, 2);
-    insertNode(root, 1);
-    insertNode(root, 3);
-    insertNode(root, 5);
-    insertNode(root, 7);
-
-    cout << "Inorder: ";
-    printInorder(root);
-    cout << endl;
-
-    cout << "Preorder: ";
-    printPreorder(root);
-    cout << endl;
-
-    cout << "Postorder: ";
-    printPostorder(root);
-    cout << endl;
-
-    return 0;
-}
-
-### [output]
-<img width="1148" height="138" alt="Screenshot 2025-12-05 151054" src="https://github.com/user-attachments/assets/47072aa1-e471-4c3b-a01f-632d084a866f" />
-
-Kode di atas itu akan print dua traversal tambahan yaitu preorder dan postorder. Traversal preorder itu membaca root terlebih dahulu, lalu subtree kiri dan subtree kanan. Traversal ini menunjukkan bentuk tree dari atas ke bawah. Traversal postorder itu membaca subtree kiri lalu subtree kanan dan terakhir root. Traversal ini digunakan saat proses yang memerlukan penyelesaian subtree sebelum root, misalnya saat menghapus seluruh node tree. Dengan memiliki tiga traversal. Inorder, preorder, dan postorder. Program dapat menampilkan isi tree dalam urutan terurut, atau dalam urutan pemrosesan subtree. Ini membuat tree jadi lebih mudah untuk dipahami.
+Kode di atas itu menampilkan seluruh data mahasiswa yang tersimpan dalam circular linked list. Data yang ditampilkan dilakukan secara berurutan sesuai dengan urutan proses penyisipan. Setiap baris output menampilkan nama mahasiswa, NIM, jenis kelamin, dan IPK secara terpisah. Hasil ini menunjukkan bahwa cara insert, pencarian, dan insertAfter berjalan dengan baik serta struktur circular linked list masih terjaga karena traversal dapat kembali ke node pertama tanpa kesalahan.
 
 
 ## Kesimpulan
-Dari ketiga implementasi Tree yang sudah dibuat, Struktur Binary Search Tree mempermudah penyimpanan dan penelusuran data karena setiap nilai ditempatkan berdasarkan aturan perbandingan. Tree yang terbentuk dapat dibaca menggunakan beberapa metode traversal untuk menampilkan isi data dari sudut yang berbeda. Di latihan nomor 1, Inorder memberi hasil terurut. Lalu, di nomor 3, Preorder membantu melihat bentuk struktur tree dan Postorder digunakan saat memproses subtree sampai selesai. Di latihan nomor 2 ini terdapat tambahan perhitungan jumlah node, total nilai, dan kedalaman membantu memahami karakteristik tree yang terbentuk dari urutan input. Dari ketiga latihan ini tuh mempelajari proses bagaimana tree dibuat, menelusuri data, serta bagaimana informasi penting dari tree dihitung.
+Dari ketiga implementasi yang sudah dibuat, dapat disimpulkan bahwa struktur data circular linked list telah berhasil diterapkan dalam penyimpanan dan pengelolaan data mahasiswa. Semua operasi dasar seperti menambah, menghapus, mencari, dan menampilkan data berjalan secara baik. Circular linked list memungkinkan pengelolaan data secara dinamis dan efisien, terutama untuk data yang diproses secara berulang. 
 
 ## Referensi
-https://www.geeksforgeeks.org/cpp/binary-tree-in-cpp/
-https://www.programiz.com/dsa/trees
-Modul 10 Tree
+https://www.geeksforgeeks.org/dsa/introduction-to-multi-linked-list/
+https://github.com/ASD-ADF/ASD_MultiList
+Modul 13 Multi Linked List
